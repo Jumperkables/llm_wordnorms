@@ -171,4 +171,4 @@ cython_debug/
 .pypirc
 
 # Custom
-data/
+data/all_norms.pickle
