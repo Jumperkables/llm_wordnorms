@@ -31,4 +31,5 @@ Assume `ROOT` to be the root of this repo
 
 3. Test the approximate BSZ you can get away with for your GPU
     * This will be needed to fit on consumer GPUs (my 1080ti is 11GB VRAM)
-    * `python -m src.test_bsz_q4`
+    * `python -m src.test_bsz_q4 --BSZ 12`
+    * I can get away with `--BSZ=12`, higher if I kill my window manager
