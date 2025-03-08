@@ -1,3 +1,5 @@
+__author__ = "Jumperkables"
+
 # standard imports
 import pickle
 
@@ -10,5 +12,4 @@ from src.data_utils.word_norms import Word2Norm
 
 if __name__ == "__main__":
     word_norms = pickle.load(open(WORD_NORM_PATH, "rb"))
-    
-    breakpoint()
+    logger.info(f"Length of Word Norms: {len(word_norms)}") 

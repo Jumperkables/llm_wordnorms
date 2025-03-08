@@ -172,3 +172,8 @@ cython_debug/
 
 # Custom
 data/all_norms.pickle
+external/
+models/
+results/
+*.gguf
+*.bin
