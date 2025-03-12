@@ -173,6 +173,7 @@ cython_debug/
 # Custom
 data/all_norms.pickle
 external/
+ideas/
 models/
 results/
 *.gguf
