@@ -4,10 +4,10 @@ __generatedBy__ = "ChatGPT"
 I asked ChatGPT to generate a minimal dummy training scenario
 """
 
-# local imports
+# standard imports
+from argparse import ArgumentParser
 
 # third party imports
-from argparse import ArgumentParser
 from datasets import load_dataset
 from peft import LoraConfig, get_peft_model
 import torch
@@ -16,6 +16,7 @@ from transformers import AutoModelForCausalLM, BitsAndBytesConfig, AutoTokenizer
 
 # local imports
 from src.config import LLAMA_CONVERTED_PATH, RESULTS_PATH
+from src.model_utils.load_llama import load_llama_peft_quantised
 
 
 def tokenize_function(examples):
@@ -36,22 +37,8 @@ if __name__ == "__main__":
     parser.add_argument("--BSZ", type=int, required=True)
     args = parser.parse_args()
 
-    # Stuff
-    quantization_config = BitsAndBytesConfig(load_in_4bit=True)
-    model = AutoModelForCausalLM.from_pretrained(
-        LLAMA_CONVERTED_PATH,
-        quantization_config=quantization_config,
-        torch_dtype=torch.float16,
-    )
-    tokenizer = AutoTokenizer.from_pretrained(LLAMA_CONVERTED_PATH)
-    tokenizer.pad_token = tokenizer.eos_token
-
-    # Setup LoRA (lightweight fine-tuning)
-    peft_config = LoraConfig(
-        r=8, lora_alpha=16, target_modules=["q_proj", "v_proj"],
-        lora_dropout=0.1, bias="none", task_type="CAUSAL_LM"
-    )
-    model = get_peft_model(model, peft_config)
+    # Model and tokeniser
+    model, tokeniser = load_llama_peft_quantised()
 
     # Load dummy dataset (tiny sample)
     dataset = load_dataset("Abirate/english_quotes", split="train[:5%]")  # Use only 1% of data
