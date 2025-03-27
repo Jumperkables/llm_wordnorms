@@ -21,5 +21,7 @@ if __name__ == "__main__":
     # demo here: https://huggingface.co/docs/trl/en/quickstart
     ppo_config = {
         "mini_batch_size": 1,
-        "batch_size": 1,
+        "batch_size": args.bsz,
     }
+    config = PPOConfig(**ppo_config)
+    ppo_trainer = 
